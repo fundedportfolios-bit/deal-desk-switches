@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "switches": {
+    "safety-check": true
+  }
+}
