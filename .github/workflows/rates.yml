@@ -1,0 +1,41 @@
+# Updates rates.json from the U.S. Treasury's daily 10-year par yield
+# (home.treasury.gov, daily_treasury_yield_curve). Deal Desk reads it to set
+# each workday's rate.
+#
+# Runs on business days, in the evening (after the Treasury publishes) and
+# early in the morning (before the 9:00 AM Eastern workday starts). Times are
+# UTC: 23:30 is 6:30 PM EST / 7:30 PM EDT; 10:30 is 5:30 AM EST / 6:30 AM EDT.
+# Each run commits (rates.json's checkedAt changes), which keeps GitHub from
+# switching the schedule off. "Run workflow" on the Actions tab runs it now.
+name: Update rates
+
+on:
+  schedule:
+    - cron: '30 23 * * 1-5'
+    - cron: '30 10 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rates
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test the script
+        run: node --test scripts/update-rates.test.mjs
+      - name: Fetch the Treasury 10-year and write rates.json
+        run: node scripts/update-rates.mjs rates.json
+      - name: Commit rates.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rates.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Update rates.json"
+          git push
