@@ -1,5 +1,4 @@
-{"version":1,"source":"U.S. Treasury, Daily Treasury Par Yield Curve Rates, 10-year (home.treasury.gov, daily_treasury_yield_curve)","checkedAt":"2026-11-19T19:06:25Z","tenYear":[["2025-11-18",4.12],
-["2025-11-19",4.13],
+{"version":1,"source":"U.S. Treasury, Daily Treasury Par Yield Curve Rates, 10-year (home.treasury.gov, daily_treasury_yield_curve)","checkedAt":"2026-11-20T04:09:47Z","tenYear":[["2025-11-19",4.13],
 ["2025-11-20",4.1],
 ["2025-11-21",4.06],
 ["2025-11-24",4.04],
@@ -248,4 +247,5 @@
 ["2026-11-13",5.15],
 ["2026-11-16",5.12],
 ["2026-11-17",5.1],
-["2026-11-18",5.07]]}
+["2026-11-18",5.07],
+["2026-11-19",5.04]]}
